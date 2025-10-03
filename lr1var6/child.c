@@ -18,7 +18,7 @@ static int my_atoi(const char *str) {
 }
 
 static void process_line(char *line_buf) {
-  char num1_str[20], num2_str[20];
+  char num1_str[21], num2_str[21];
   size_t i = 0, j = 0;
 
   while (line_buf[i] != ' ' && line_buf[i] != '\0') {
