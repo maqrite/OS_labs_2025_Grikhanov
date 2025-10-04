@@ -18,42 +18,36 @@ static int my_atoi(const char *str) {
 }
 
 static void process_line(char *line_buf) {
-  char num1_str[21], num2_str[21], num3_str[21];
-  size_t i = 0, j = 0;
+  int sum = 0;
+  size_t i = 0;
 
-  while (line_buf[i] != ' ' && line_buf[i] != '\0') {
-    if (j < sizeof(num1_str) - 1)
-      num1_str[j++] = line_buf[i];
-    i++;
-  }
-  num1_str[j] = '\0';
-  if (line_buf[i] == ' ')
-    i++;
-
-  j = 0;
-  while (line_buf[i] != ' ' && line_buf[i] != '\0') {
-    if (j < sizeof(num2_str) - 1)
-      num2_str[j++] = line_buf[i];
-    i++;
-  }
-  num2_str[j] = '\0';
-  if (line_buf[i] == ' ')
-    i++;
-
-  j = 0;
   while (line_buf[i] != '\0') {
-    if (j < sizeof(num3_str) - 1)
-      num3_str[j++] = line_buf[i];
-    i++;
-  }
-  num3_str[j] = '\0';
+    while (line_buf[i] == ' ') {
+      i++;
+    }
+    if (line_buf[i] == '\0') {
+      break;
+    }
 
-  int sum = my_atoi(num1_str) + my_atoi(num2_str) + my_atoi(num3_str);
+    char num_str[21];
+    size_t j = 0;
+    while (line_buf[i] != ' ' && line_buf[i] != '\0') {
+      if (j < sizeof(num_str) - 1) {
+        num_str[j++] = line_buf[i];
+      }
+      i++;
+    }
+    num_str[j] = '\0';
+
+    if (j > 0) {
+      sum += my_atoi(num_str);
+    }
+  }
+
   char result_buf[32];
   int len = snprintf(result_buf, sizeof(result_buf), "%d\n", sum);
   write(STDOUT_FILENO, result_buf, len);
 }
-
 int main(void) {
   char line_buf[128];
   size_t line_pos = 0;
